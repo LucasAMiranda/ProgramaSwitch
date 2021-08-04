@@ -1,3 +1,10 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -6,14 +13,26 @@
 
 int main(void) {
 
-int opcão;
+int opcao;
 int idade;
 char nome[20];
 char sobrenome[20];
 int ano_nascimento;
-int num1, num2;
-int soma, produto, quadrado, módulo, fah, celsius, num, fat, hora;
+int num1, num2 , tabuada[10][10], i, j;
+int soma, produto, quadrado, modulo, fah, celsius, num, fat, hora;
+char ch[20];
 float raiz_quadrada , seno;
+double soma_pares = 0;
+double soma_impares = 0;
+double quantidade_pares = 0;
+double quantidade_impares = 0;
+double media_par = 0;
+double media_impar = 0;
+double diferen_matriz = 0;
+double matriz[5][3];
+
+
+setlocale(LC_ALL, NULL);
 
 printf("\n============== Menu =========== \n");
 printf("1- Cadastro de Usuário\n");
@@ -21,13 +40,14 @@ printf("2- Cálculo de expressões Matemática\n");
 printf("3- Conversor de Temperatura\n");
 printf("4- Fatorial\n");
 printf("5- Turno\n");
-printf("6- Em manutenção\n");
-printf("7- Exit\n");
+printf("6- Array de char de 10 posições\n");
+printf("7- Matriz Tabuada\n");
+printf("8 -Lê valores para uma matriz do tipo Double");
 printf("\n=============================== \n");
 printf("Escolha a opção desejada: ");
-scanf("%d", &opcão); 
+scanf("%d", &opcao); 
  
-  switch(opcão){
+  switch(opcao){
 
     case 1:
         printf("Qual sua idade: ");
@@ -40,8 +60,6 @@ scanf("%d", &opcão);
         scanf("%d", &ano_nascimento);
 
         break;
-
-        exit(0);
 
     case 2:
         printf("Infome um número: ");
@@ -58,12 +76,10 @@ scanf("%d", &opcão);
         printf("A raiz da quadrada da soma %f\n ", raiz_quadrada);
         seno = sin(num1 - num2);
         printf("Valor de seno de %.2f \n",seno);
-        módulo = num1 % 2;
-        printf("O módulo do primeiro número é %d\n", módulo);
+        modulo = num1 % 2;
+        printf("O módulo do primeiro número é %d\n", modulo);
 
         break;
-
-        exit(0);
 
     case 3:
         printf("Digite um valor do Fahrenheit: ");
@@ -75,8 +91,6 @@ scanf("%d", &opcão);
 
         break;
 
-        exit(0);
-
     case 4:
        printf("Insira um valor para o qual deseja calcular seu fatorial: ");
        scanf("%d", &num); 
@@ -85,7 +99,7 @@ scanf("%d", &opcão);
            printf("\nFatorial calculado: %d", fat); 
        }
 
-       exit(0);
+       break;
 
     case 5:
        printf("Digite seu horario: ");
@@ -101,13 +115,82 @@ scanf("%d", &opcão);
           printf("Horario invalido");
        }
 
-       exit(0);
+    case 6:
+      printf("Informe os valores: ");
+      scanf("%s", ch);
 
-    default:
-        exit(0);
+       for (i = 0; i < 10; i++)
+       {
+        int val = ch[i] - '0';
+        soma = soma + val;
+       }
 
+        float media = soma / 10.0;
+
+        printf("\nArray de char: %s", ch);
+        printf("\nMedia dos numeros: %f", media);
+
+        break;
+
+    case 7:
+        
+      for(i=1; i<=10; i++)
+      {
+        for(j=1; j<=10; j++)
+        {
+            tabuada[i][j] = i * j;
+            
+        }
+      }
       
-  }
+        if (i != 4 && j!=4){
+            printf("%d", tabuada[i][j]); 
+        } 
 
+      for(i=1; i<=10; i++)
+      {
+          printf("\n");
+          
+          for(j=1; j<=10; j++)
+          {
+            printf("%d x %d = %d\t", i,j, tabuada[i][j]);
+          }
+      }
+
+      break;
+
+    case 8:
+      for (i=0; i<5; i++)
+      {
+         for(j = 0; j<3; j++)
+         {
+           printf("\nElemento[%d][%d] =", i,j);
+
+           fflush(stdin);
+           scanf("%lf", &matriz[i][j]);
+           
+           if(j%2==0){
+             soma_pares += matriz[i][j];
+             quantidade_pares++; 
+           }
+           else if(i%2!=0){
+             soma_impares = matriz[i][j];
+             quantidade_impares++;
+           }
+         }
+      }
+
+      media_par = (soma_pares/quantidade_pares);
+      media_impar = (soma_impares/quantidade_impares);
+      diferen_matriz = media_par - media_impar;
+      
+      printf("\n A média dos pares são: %lf ", media_par);
+      printf("\n A média dos ímpares são: %lf ", media_impar);
+      printf("\n A diferença entre as médias dos números pares com os números ímpares são: %lf ", diferen_matriz);
+
+      break;
+  
+  }
   return 0;
 }
+
